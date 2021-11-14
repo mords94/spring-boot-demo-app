@@ -20,7 +20,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private final String[] WHITE_LIST = { "/api/authenticate", "/api/register", "/api/place/**/qr", "/dev/**" };
+	private final String[] WHITE_LIST = { "/api/authenticate", "/api/register", "/api/place/**/qr", "/dev/**",
+			"/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**" };
 
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;

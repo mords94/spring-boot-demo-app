@@ -30,6 +30,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+
+import io.swagger.v3.oas.annotations.Operation;
+
 import org.springframework.http.HttpStatus;
 
 @Validated
@@ -53,11 +56,14 @@ public class VisitController {
     private JwtTokenUtil jwtTokenUtil;
 
     @GetMapping
+    @Operation(summary = "Lists all visits", tags = { "visit" })
     public ResponseEntity<Iterable<Visit>> getVisits() {
         return ResponseEntity.ok(visitRepository.findAll());
     }
 
     @PatchMapping("/{id}")
+    @Operation(summary = "Updates a visit", description = "Only a check-out date can be set ", tags = { "visit" })
+
     public ResponseEntity<?> updateVisit(@PathVariable Integer id, @Valid @RequestBody UpdateVisitRequest dto) {
         Visit visit = visitRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -67,6 +73,7 @@ public class VisitController {
     }
 
     @GetMapping("/current_user")
+    @Operation(summary = "Fetches an in-progress visit for the current logged in user", tags = { "visit" })
     public ResponseEntity<Visit> getVisit(@RequestHeader("Authorization") String token) {
         String email = jwtTokenUtil.getUsernameFromToken(token.replace("Bearer ", ""));
         var user = userRepository.findByPersonDetailsEmail(email).get();
@@ -83,6 +90,7 @@ public class VisitController {
     }
 
     @GetMapping("/current_user/all")
+    @Operation(summary = "Lists all visits for the current logged in user", tags = { "visit" })
     public ResponseEntity<Collection<Visit>> getVisits(@RequestHeader("Authorization") String token) {
         String email = jwtTokenUtil.getUsernameFromToken(token.replace("Bearer ", ""));
         var user = userRepository.findByPersonDetailsEmail(email).get();
@@ -97,6 +105,7 @@ public class VisitController {
 
     @PostMapping
     @Transactional
+    @Operation(summary = "Create a new visit", tags = { "visit" })
     public ResponseEntity<?> createVisit(@Valid @RequestBody CreateVisitRequest dto) {
         Visit visit = new Visit();
         List<Guest> guestsToSave = new ArrayList<Guest>();

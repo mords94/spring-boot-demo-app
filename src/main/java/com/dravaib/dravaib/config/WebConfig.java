@@ -11,6 +11,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
@@ -20,6 +24,12 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public Logger logger() {
         return LoggerFactory.getLogger(WebConfig.class);
+    }
+
+    @Bean
+    public OpenAPI springShopOpenAPI() {
+        return new OpenAPI().info(new Info().title("CovidTracker API").description("CovidTracker application for PPCU")
+                .version("v1.0.0").license(new License().name("Apache 2.0")));
     }
 
     @Override

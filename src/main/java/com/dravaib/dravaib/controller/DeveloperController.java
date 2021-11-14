@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 @RequestMapping("/dev")
 public class DeveloperController {
@@ -27,6 +29,7 @@ public class DeveloperController {
     private PasswordEncoder bEncoder;
 
     @GetMapping("/seed")
+    @Operation(summary = "Populates the database with predefined users and roles", tags = { "dev" }, hidden = true)
     public ResponseEntity<?> populateSeeds() {
 
         seed.run();
@@ -35,6 +38,7 @@ public class DeveloperController {
     }
 
     @GetMapping("/encrypt/{password}")
+    @Operation(summary = "Password magic", tags = { "dev" }, hidden = true)
     public String encrypt(@PathVariable String password) {
         String pw = bEncoder.encode("12345678");
         for (User user : userRepository.findAll()) {

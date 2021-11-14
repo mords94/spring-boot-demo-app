@@ -32,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @Validated
 @CrossOrigin
 @RequestMapping("/api")
@@ -60,6 +62,7 @@ public class JwtController {
     private ErrorUtil errorUtil;
 
     @PostMapping("/authenticate")
+    @Operation(summary = "Authenticates a user", tags = { "user" })
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
         authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
@@ -74,6 +77,7 @@ public class JwtController {
 
     @PostMapping(value = "/register")
     @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRES_NEW)
+    @Operation(summary = "Registers a new user", tags = { "user" })
     public ResponseEntity<?> register(@Valid @RequestBody CreateUserRequest user) {
 
         if (userRepository.existsByPersonDetailsEmail(user.getPersonDetails().getEmail())) {

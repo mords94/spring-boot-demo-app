@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @Validated
 @RestController
 @RequestMapping("/api/user")
@@ -36,21 +38,20 @@ public class UserController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @Autowired
-    private Logger logger;
-
     @GetMapping
     public Iterable<User> getUsers() {
         return userRepository.findAll();
     }
 
     @GetMapping("/profile")
+    @Operation(summary = "Fetches the current logged in user details", tags = { "user" })
     public ResponseEntity<User> getUser(@RequestHeader("Authorization") String token) {
         String email = jwtTokenUtil.getUsernameFromToken(token.replace("Bearer ", ""));
         return ResponseEntity.ok(userRepository.findByPersonDetailsEmail(email).get());
     }
 
     @PatchMapping("/profile")
+    @Operation(summary = "Updates the current logged in user details", tags = { "user" })
     public ResponseEntity<User> updateUser(@RequestHeader("Authorization") String token,
             @Valid @RequestBody UpdateProfileRequest dto) {
         String email = jwtTokenUtil.getUsernameFromToken(token.replace("Bearer ", ""));
@@ -59,11 +60,4 @@ public class UserController {
 
         return ResponseEntity.ok(userRepository.save(user));
     }
-
-    @PostMapping
-    public ResponseEntity<User> createUser(@Valid @RequestBody User dto) {
-        User user = userRepository.save(dto);
-        return new ResponseEntity<User>(user, HttpStatus.CREATED);
-    }
-
 }
