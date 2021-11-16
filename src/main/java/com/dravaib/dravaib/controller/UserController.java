@@ -39,6 +39,7 @@ public class UserController {
     private JwtTokenUtil jwtTokenUtil;
 
     @GetMapping
+    @Operation(summary = "Fetches all users", tags = { "user" })
     public Iterable<User> getUsers() {
         return userRepository.findAll();
     }

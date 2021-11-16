@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -78,6 +79,7 @@ public class JwtController {
     @PostMapping(value = "/register")
     @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRES_NEW)
     @Operation(summary = "Registers a new user", tags = { "user" })
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> register(@Valid @RequestBody CreateUserRequest user) {
 
         if (userRepository.existsByPersonDetailsEmail(user.getPersonDetails().getEmail())) {

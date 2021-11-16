@@ -7,6 +7,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import com.dravaib.dravaib.model.embed.Address;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,6 +27,10 @@ public class Place {
 
     @Embedded
     private Address address;
+
+    @JsonIgnore
+    @ManyToOne
+    private User owner;
 
     public UUID getId() {
         return this.id;
