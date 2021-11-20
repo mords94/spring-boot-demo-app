@@ -1,0 +1,1074 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "CovidTracker API",
+    "description": "CovidTracker application for PPCU",
+    "license": { "name": "Apache 2.0" },
+    "version": "v1.0.0"
+  },
+  "servers": [
+    { "url": "http://localhost:8080", "description": "Generated server url" }
+  ],
+  "paths": {
+    "/api/visit": {
+      "get": {
+        "tags": ["visit"],
+        "summary": "Lists all visits",
+        "operationId": "getVisits",
+        "parameters": [
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/Pageable" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/PageVisit" } }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["visit"],
+        "summary": "Create a new visit",
+        "operationId": "createVisit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateVisitRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": { "*/*": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/api/register": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Registers a new user",
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateUserRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": { "*/*": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/api/place": {
+      "get": {
+        "tags": ["place"],
+        "summary": "Lists all places",
+        "operationId": "getPlaces",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Place" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["place"],
+        "summary": "Creates a new place",
+        "operationId": "createPlace",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Place" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/Place" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/guest": {
+      "get": {
+        "tags": ["guest"],
+        "summary": "Lists all guests",
+        "operationId": "getGuests",
+        "parameters": [
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/Pageable" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/PageGuest" } }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["guest"],
+        "summary": "Creates a guests",
+        "operationId": "createGuest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Guest" }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/Guest" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/authenticate": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Authenticates a user",
+        "operationId": "createAuthenticationToken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/JwtRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/api/visit/{id}": {
+      "delete": {
+        "tags": ["visit"],
+        "summary": "Deletes a visit",
+        "operationId": "deleteVisit",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "204": { "description": "No Content" }
+        }
+      },
+      "patch": {
+        "tags": ["visit"],
+        "summary": "Updates a visit",
+        "description": "Only a check-out date can be set ",
+        "operationId": "updateVisit",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateVisitRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/api/user/profile": {
+      "get": {
+        "tags": ["user"],
+        "summary": "Fetches the current logged in user details",
+        "operationId": "getUser",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/User" } }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["user"],
+        "summary": "Updates the current logged in user details",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateProfileRequest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/User" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/place/{id}": {
+      "patch": {
+        "tags": ["place"],
+        "summary": "Updates a place",
+        "operationId": "updatePlace",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Place" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": { "description": "OK" }
+        }
+      }
+    },
+    "/api/guest/{id}": {
+      "patch": {
+        "tags": ["guest"],
+        "summary": "Creates a guests",
+        "operationId": "updateGuest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Guest" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/Guest" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/visit/current_user": {
+      "get": {
+        "tags": ["visit"],
+        "summary": "Fetches an in-progress visit for the current logged in user",
+        "operationId": "getVisit",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": { "schema": { "$ref": "#/components/schemas/Visit" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/visit/current_user/all": {
+      "get": {
+        "tags": ["visit"],
+        "summary": "Lists all visits for the current logged in user",
+        "operationId": "getVisits_1",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Visit" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user": {
+      "get": {
+        "tags": ["user"],
+        "summary": "Fetches all users",
+        "operationId": "getUsers",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": { "*/*": { "schema": { "type": "object" } } }
+          }
+        }
+      }
+    },
+    "/api/place/{id}/qr": {
+      "get": {
+        "tags": ["place"],
+        "summary": "Create qr code for a place",
+        "operationId": "getQrCode",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": { "description": "OK", "content": { "image/png": {} } }
+        }
+      }
+    },
+    "/api/country": {
+      "get": {
+        "tags": ["country"],
+        "summary": "Lists all countries",
+        "operationId": "getCountries",
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Country" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": { "type": "integer", "format": "int32" },
+          "message": { "type": "string" },
+          "fieldMessage": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          }
+        }
+      },
+      "Address": {
+        "required": ["addressLine", "city"],
+        "type": "object",
+        "properties": {
+          "city": { "type": "string" },
+          "addressLine": { "type": "string" }
+        }
+      },
+      "CreateVisitRequest": {
+        "required": ["guests", "place"],
+        "type": "object",
+        "properties": {
+          "place": { "$ref": "#/components/schemas/Place" },
+          "guests": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Guest" }
+          }
+        }
+      },
+      "Guest": {
+        "required": ["personDetails"],
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "personDetails": { "$ref": "#/components/schemas/PersonDetails" }
+        }
+      },
+      "PersonDetails": {
+        "required": ["firstName", "lastName", "phone"],
+        "type": "object",
+        "properties": {
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string" },
+          "phone": { "type": "string" }
+        }
+      },
+      "Place": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "address": { "$ref": "#/components/schemas/Address" }
+        }
+      },
+      "CreateUserRequest": {
+        "required": ["password", "personDetails"],
+        "type": "object",
+        "properties": {
+          "password": { "type": "string" },
+          "personDetails": { "$ref": "#/components/schemas/PersonDetails" }
+        }
+      },
+      "JwtRequest": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "password": { "type": "string" }
+        }
+      },
+      "UpdateVisitRequest": {
+        "required": ["finishDate"],
+        "type": "object",
+        "properties": {
+          "finishDate": { "type": "string", "format": "date-time" }
+        }
+      },
+      "UpdateProfileRequest": {
+        "required": ["personDetails"],
+        "type": "object",
+        "properties": {
+          "personDetails": { "$ref": "#/components/schemas/PersonDetails" }
+        }
+      },
+      "Role": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "roleType": {
+            "type": "string",
+            "enum": ["ROLE_GUEST", "ROLE_OWNER", "ROLE_ADMIN"]
+          }
+        }
+      },
+      "User": {
+        "required": ["personDetails"],
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "personDetails": { "$ref": "#/components/schemas/PersonDetails" },
+          "role": { "$ref": "#/components/schemas/Role" }
+        }
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "page": { "minimum": 0, "type": "integer", "format": "int32" },
+          "size": { "minimum": 1, "type": "integer", "format": "int32" },
+          "sort": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "PageVisit": {
+        "type": "object",
+        "properties": {
+          "totalPages": { "type": "integer", "format": "int32" },
+          "totalElements": { "type": "integer", "format": "int64" },
+          "size": { "type": "integer", "format": "int32" },
+          "content": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Visit" }
+          },
+          "number": { "type": "integer", "format": "int32" },
+          "sort": { "$ref": "#/components/schemas/Sort" },
+          "pageable": { "$ref": "#/components/schemas/PageableObject" },
+          "numberOfElements": { "type": "integer", "format": "int32" },
+          "first": { "type": "boolean" },
+          "last": { "type": "boolean" },
+          "empty": { "type": "boolean" }
+        }
+      },
+      "PageableObject": {
+        "type": "object",
+        "properties": {
+          "offset": { "type": "integer", "format": "int64" },
+          "sort": { "$ref": "#/components/schemas/Sort" },
+          "pageNumber": { "type": "integer", "format": "int32" },
+          "pageSize": { "type": "integer", "format": "int32" },
+          "paged": { "type": "boolean" },
+          "unpaged": { "type": "boolean" }
+        }
+      },
+      "Sort": {
+        "type": "object",
+        "properties": {
+          "empty": { "type": "boolean" },
+          "sorted": { "type": "boolean" },
+          "unsorted": { "type": "boolean" }
+        }
+      },
+      "Visit": {
+        "required": ["guests", "place"],
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "visitDate": { "type": "string", "format": "date-time" },
+          "finishDate": { "type": "string", "format": "date-time" },
+          "place": { "$ref": "#/components/schemas/Place" },
+          "guests": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Guest" }
+          }
+        }
+      },
+      "PageGuest": {
+        "type": "object",
+        "properties": {
+          "totalPages": { "type": "integer", "format": "int32" },
+          "totalElements": { "type": "integer", "format": "int64" },
+          "size": { "type": "integer", "format": "int32" },
+          "content": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Guest" }
+          },
+          "number": { "type": "integer", "format": "int32" },
+          "sort": { "$ref": "#/components/schemas/Sort" },
+          "pageable": { "$ref": "#/components/schemas/PageableObject" },
+          "numberOfElements": { "type": "integer", "format": "int32" },
+          "first": { "type": "boolean" },
+          "last": { "type": "boolean" },
+          "empty": { "type": "boolean" }
+        }
+      },
+      "Country": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "name": { "type": "string" }
+        }
+      }
+    }
+  }
+}
