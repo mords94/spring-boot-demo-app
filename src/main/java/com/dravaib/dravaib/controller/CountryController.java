@@ -3,11 +3,13 @@ package com.dravaib.dravaib.controller;
 import java.util.Collection;
 
 import com.dravaib.dravaib.model.Country;
+import com.dravaib.dravaib.model.RoleType;
 import com.dravaib.dravaib.repository.CountryRepository;
 import com.dravaib.dravaib.utils.ListUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +24,7 @@ public class CountryController {
 
     @GetMapping
     @Operation(summary = "Lists all countries", tags = { "country" })
+    @PreAuthorize("@authorizationService.isAdmin()")
     public ResponseEntity<Collection<Country>> getCountries() {
         return ResponseEntity.ok(ListUtil.iterableToList(countryRepository.findAll()));
     }

@@ -1,5 +1,7 @@
 package com.dravaib.dravaib.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.dravaib.dravaib.config.JwtTokenUtil;
@@ -13,6 +15,7 @@ import com.dravaib.dravaib.model.dto.request.JwtRequest;
 import com.dravaib.dravaib.service.JwtUserDetailsService;
 import com.dravaib.dravaib.utils.ErrorUtil;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,10 +65,14 @@ public class JwtController {
     @Autowired
     private ErrorUtil errorUtil;
 
+    @Autowired
+    private Logger logger;
+
     @PostMapping("/authenticate")
     @Operation(summary = "Authenticates a user", tags = { "user" })
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
+        logger.debug(authenticationRequest.getEmail() + " ..... " + authenticationRequest.getPassword());
         authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());

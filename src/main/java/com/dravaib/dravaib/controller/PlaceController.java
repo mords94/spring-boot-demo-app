@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +50,7 @@ public class PlaceController {
 
     @PostMapping
     @Operation(summary = "Creates a new place", tags = { "place" })
+    @PreAuthorize("@authorizationService.isOwnerOrAdmin()")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Place> createPlace(@Valid @RequestBody Place place) {
         return new ResponseEntity<Place>(placeRepository.save(place), HttpStatus.CREATED);
@@ -56,6 +58,7 @@ public class PlaceController {
 
     @PatchMapping("/{id}")
     @Operation(summary = "Updates a place", tags = { "place" })
+    @PreAuthorize("@authorizationService.isOwnerOrAdmin()")
     public ResponseEntity<Void> updatePlace(@Valid @RequestBody Place place) {
         placeRepository.save(place);
         return ResponseEntity.noContent().build();

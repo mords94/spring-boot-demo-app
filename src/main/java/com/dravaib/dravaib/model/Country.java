@@ -20,6 +20,11 @@ public class Country {
         this.name = name;
     }
 
+    public Country(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Integer getId() {
         return this.id;
     }

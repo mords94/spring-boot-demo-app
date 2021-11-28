@@ -56,4 +56,20 @@ public class Place {
         this.address = address;
     }
 
+    public Place(UUID id, String name, Address address, User owner) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.owner = owner;
+    }
+
+    public Place(String name, Address address, User owner) {
+        this.name = name;
+        this.address = address;
+        this.owner = owner;
+    }
+
+    public Place() {
+    }
+
 }

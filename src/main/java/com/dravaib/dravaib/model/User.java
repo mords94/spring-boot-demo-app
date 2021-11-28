@@ -75,4 +75,17 @@ public class User {
   public User() {
   }
 
+  public boolean hasRole(RoleType type) {
+    return this.getRole().getRoleType().equals(type);
+  }
+
+  public boolean hasRole(RoleType[] types) {
+    for (RoleType type : types) {
+      if (type.equals(getRole().getRoleType())) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }

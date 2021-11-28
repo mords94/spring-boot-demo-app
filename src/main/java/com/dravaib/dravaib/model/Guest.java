@@ -1,7 +1,6 @@
 package com.dravaib.dravaib.model;
 
 import java.util.Collection;
-import java.util.Set;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;

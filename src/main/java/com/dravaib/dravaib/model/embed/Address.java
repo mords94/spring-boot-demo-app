@@ -1,10 +1,7 @@
 package com.dravaib.dravaib.model.embed;
 
 import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
-
-import com.dravaib.dravaib.model.Country;
 
 @Embeddable
 public class Address {
@@ -31,6 +28,14 @@ public class Address {
 
     public void setAddressLine(String addressLine) {
         this.addressLine = addressLine;
+    }
+
+    public Address(String city, String addressLine) {
+        this.city = city;
+        this.addressLine = addressLine;
+    }
+
+    public Address() {
     }
 
 }
